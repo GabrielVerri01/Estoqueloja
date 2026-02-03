@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+</head>
+
+<body>
+  <form action="{{ url_for('home') }}">
+    <div class="container">
+      <button type="submit"> Back </button>
+    </div>
+  </form>
+  <h1> Olá, bem-vindo à página de Login! Preencha os dados a seguir: </h1>
+  <form method="POST">
+    <div class="login">
+      <h2> Qual o seu email?</h2>
+      <div class="input-center">
+        <input type="email" placeholder="Email" name="email" required><br><br>
+      </div>
+
+      <h2> Qual a sua senha?</h2>
+
+      <div class="input-center">
+        <input type="password" placeholder="Senha" name="senha" required><br><br>
+      </div>
+      <div class="inner">
+        <input type="submit" value="Entrar">
+      </div>
+
+  </form>
+
+  {% if mensagem %}
+  <p style="color:red"> {{mensagem}} </p>
+  {% endif %}
+
+
+  <h3> Não possui acesso? <a href="URL">Clique aqui</a> </h3>
+  </div>
+
+</body>
+
+</html>

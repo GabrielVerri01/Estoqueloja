@@ -1,0 +1,17 @@
+h1 {
+  background-color: black;
+  color: white;
+}
+
+p {
+  text-align: center;
+}
+
+.container {
+  justify-content: center;
+  display: flex;
+}
+
+button {
+  border-radius: 10px;
+}

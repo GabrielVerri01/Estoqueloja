@@ -1,0 +1,56 @@
+body {
+  color: white;
+  background-color: rgb(106, 3, 29);
+}
+
+h2 {
+  justify-content: center;
+  display: flex;
+}
+
+h3 {
+  justify-content: center;
+  display: flex;
+}
+
+a {
+  color: black;
+}
+
+h1 {
+  justify-content: center;
+  display: flex;
+}
+
+.input-center {
+  justify-content: center;
+  display: flex;
+}
+
+.login {
+  /*background-color: transparent;*/
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  width: 420px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 20px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+  color: black;
+  background-color: rgba(231, 231, 189, 0.84);
+}
+
+.inner {
+  justify-content: center;
+  display: flex;
+  margin-top: 30px;
+}
+
+input {
+  border-radius: 10px;
+}
+
+button {
+  border-radius: 10px;
+}

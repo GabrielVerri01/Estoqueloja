@@ -63,3 +63,10 @@ button {
   display: flex;
   justify-content: flex-end;
 }
+/* back button alignment (left) */
+.back-bar .container {
+  border-radius: 10px;
+  display: flex;
+  justify-content: flex-start;
+  padding: 10px 20px;
+}

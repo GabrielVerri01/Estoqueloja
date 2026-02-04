@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="{{url_for('static', filename='pedir_prod.css')}}">
+
+</head>
+
+<body>
+  <form action="{{ url_for('estoque') }}" class="back-bar">
+    <div class="container">
+      <button type="submit"> Back </button>
+    </div>
+  </form>
+
+  <h1> Aqui estão os produtos que precisam ser repostos: </h1>
+  <table>
+    <tr>
+      <th>Produto</th>
+      <th>Quantidade</th>
+      <th>Status</th>
+    </tr>
+
+    {% for p in produtos %}
+    {% if p[2] <= p[3] %} <tr>
+      <td>{{ p[1] }}</td>
+      <td>{{ p[2] }}</td>
+      <td style="color:red;">⚠ Pedir reposição</td>
+      </tr>
+      {% endif %}
+      {% endfor %}
+
+</body>
+
+</html>

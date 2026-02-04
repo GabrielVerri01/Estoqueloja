@@ -1,0 +1,12 @@
+h1 {
+  justify-content: center;
+  display: flex;
+  margin-top: 12px; /* evita sobreposição com o botão */
+}
+
+form {
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

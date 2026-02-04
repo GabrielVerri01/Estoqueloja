@@ -3,9 +3,33 @@ body {
   background-color: rgb(106, 3, 29);
 }
 
+label {
+  justify-content: center;
+  display: flex;
+  font-size: medium;
+}
+
+select {
+  border-radius: 10px;
+  display: block;
+  margin: 8px auto 4px;
+  padding: 6px;
+  width: 80%;
+  max-width: 360px;
+  box-sizing: border-box;
+}
+
+.input-center input {
+  width: 80%;
+  max-width: 360px;
+  box-sizing: border-box;
+}
+
 h2 {
   justify-content: center;
   display: flex;
+  margin-top: auto;
+  padding-top: 10px;
 }
 
 h3 {

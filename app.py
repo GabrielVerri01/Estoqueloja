@@ -2,6 +2,8 @@ import sqlite3
 from flask import Flask, render_template, request, redirect, url_for, flash
 
 app = Flask(__name__)
+# chave necessária para usar `flash()` e sessão
+app.secret_key = "dev_secret_key_change_me"
 
 @app.route('/')
 def home():
@@ -74,12 +76,93 @@ def estoque():
     conn = sqlite3.connect("estoque.db")
     cursor = conn.cursor()
 
-    cursor.execute("SELECT * FROM produtos")
+    # selecionar colunas explicitamente para manter a ordem usada nos templates
+    cursor.execute("SELECT id, nome, quantidade, estoque_minimo FROM produtos")
     produtos = cursor.fetchall()
 
     conn.close()
     return render_template("estoque.html", produtos=produtos)
 
+@app.route("/pedir_prod")
+def pedir_prod():
+    conn = sqlite3.connect("estoque.db")
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT id, nome, quantidade, estoque_minimo FROM produtos WHERE quantidade <= estoque_minimo")
+    produtos = cursor.fetchall()
+
+    conn.close()
+    return render_template("pedir_prod.html", produtos=produtos)
+
+
+@app.route("/att_semanal")
+def att_semanal():
+    return render_template("att_semanal.html")
+
+
+@app.route("/salvar_att_semanal", methods=["POST"])
+def salvar_att_semanal():
+    nome = request.form.get("nome", "").strip()
+    codigo = request.form.get("codigo", "").strip()
+    try:
+        new_q = int(request.form.get("quantidade", 0))
+    except ValueError:
+        flash("Quantidade inválida")
+        return redirect(url_for("att_semanal"))
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    produto = None
+    if codigo:
+        cursor.execute("SELECT id, nome, quantidade, estoque_minimo FROM produtos WHERE codigo = ?", (codigo,))
+        produto = cursor.fetchone()
+
+    if produto is None and nome:
+        cursor.execute("SELECT id, nome, quantidade, estoque_minimo FROM produtos WHERE nome = ?", (nome,))
+        produto = cursor.fetchone()
+
+    if produto is None:
+        conn.close()
+        flash("Produto não encontrado")
+        return redirect(url_for("att_semanal"))
+
+    # produto tem ordem: id, nome, quantidade, estoque_minimo
+    old_q = produto[2]
+    delta = old_q - new_q
+
+    produto_id = produto[0]
+
+    # registrar movimentação conforme variação
+    if delta > 0:
+        cursor.execute(
+            "INSERT INTO movimentacoes (produto_id, tipo, quantidade, usuario_id) VALUES (?, 'saida', ?, 1)",
+            (produto_id, delta),
+        )
+    elif delta < 0:
+        cursor.execute(
+            "INSERT INTO movimentacoes (produto_id, tipo, quantidade, usuario_id) VALUES (?, 'entrada', ?, 1)",
+            (produto_id, -delta),
+        )
+
+    cursor.execute(
+        "UPDATE produtos SET quantidade = ? WHERE id = ?",
+        (new_q, produto_id),
+    )
+
+    conn.commit()
+    conn.close()
+
+    flash("Atualização semanal salva")
+
+    # if produto:
+    #     cursor.execute("SELECT nome FROM produtos WHERE quantidade > estoque_minimo")
+    #     produtos_adequados = cursor.fetchall()
+    #     if produtos_adequados:
+    #         flash("Produtos com estoque adequado atualizados.")
+
+
+    return redirect(url_for("estoque"))
 
 
 if __name__ == "__main__":

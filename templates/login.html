@@ -16,6 +16,18 @@
   <h1> Olá, bem-vindo à página de Login! Preencha os dados a seguir: </h1>
   <form method="POST">
     <div class="login">
+
+      <h2>Classificação de usuário:</h2><br>
+      <select name="tipo_usuario" required>
+        <option value="admin">Administrador</option>
+        <option value="funcionario">Funcionário</option>
+        <option value="contador">Contador</option>
+        <option value="estoquista">Estoquista</option>
+        <option value="Dono">Dono</option>
+
+      </select><br><br>
+
+
       <h2> Qual o seu email?</h2>
       <div class="input-center">
         <input type="email" placeholder="Email" name="email" required><br><br>

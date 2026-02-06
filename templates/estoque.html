@@ -1,10 +1,30 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='estoque.css') }}">
+
+<body>
+  <form action="{{ url_for('adicionar_produto') }}" class="top-bar">
+    <div class="container">
+      <button type="submit"> Back </button>
+    </div>
+  </form>
+  <form action="{{ url_for('pedir_prod') }}" class="top-bar">
+    <div class="container">
+      <button type="submit"> Solicitar produtos </button>
+    </div>
+  </form>
+  <form action="{{ url_for('historico_movimentacoes') }}" class="top-bar">
+    <div class="container">
+      <button type="submit"> Historico </button>
+    </div>
+  </form>
+
+</body>
+
 <table>
   <tr>
     <th>Produto</th>
     <th>Quantidade</th>
     <th>Status</th>
   </tr>
-
   {% for p in produtos %}
   <tr>
     <td>{{ p[1] }}</td>
@@ -18,7 +38,7 @@
   {% endfor %}
 </table>
 
-<body>
+<!-- <body>
   <form action="{{ url_for('adicionar_produto') }}" class="back-bar">
     <div class="container">
       <button type="submit"> Back </button>
@@ -31,4 +51,4 @@
     </div>
   </form>
 
-</body>
+</body> -->

@@ -154,15 +154,23 @@ def salvar_att_semanal():
     conn.close()
 
     flash("Atualização semanal salva")
-
-    # if produto:
-    #     cursor.execute("SELECT nome FROM produtos WHERE quantidade > estoque_minimo")
-    #     produtos_adequados = cursor.fetchall()
-    #     if produtos_adequados:
-    #         flash("Produtos com estoque adequado atualizados.")
-
-
     return redirect(url_for("estoque"))
+
+@app.route("/historico_movimentacoes")
+def historico_movimentacoes():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT m.id, p.nome, m.tipo, m.quantidade, m.data AS data_hora
+        FROM movimentacoes m
+        JOIN produtos p ON m.produto_id = p.id
+        ORDER BY m.data DESC
+    """)
+    movimentacoes = cursor.fetchall()
+
+    conn.close()
+    return render_template("historico_movimentacoes.html", movimentacoes=movimentacoes)
 
 
 if __name__ == "__main__":

@@ -3,13 +3,6 @@ label {
   font-size: 24px;
 }
 
-button {
-  border-radius: 10px;
-  box-sizing: border-box;
-  margin: 0;
-  margin-block-end: 0;
-}
-
 /* Table layout and basic styles */
 table {
   width: 100%;
@@ -48,4 +41,67 @@ th {
   .actions-row form button {
     width: 100%;
   }
+}
+
+/* botao de menu */
+.navbar > button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Navbar: alinhar conteúdo à esquerda e ajustar espaçamento */
+.navbar {
+  position: relative;
+  display: flex;
+  /* flex-direction: column; */
+  align-items: flex-start;
+  transition: transform 0.2s ease-in-out; /* animate both hover in and out */
+  transform-origin: left center;
+}
+
+#menu button {
+  width: 100px;
+  padding: 5px;
+  margin: 0; /* remove spacing between menu buttons */
+  text-align: center;
+  box-sizing: border-box;
+  border-bottom-color: black;
+}
+
+#menu li {
+  margin: 0;
+  padding: 0;
+}
+
+#menu {
+  list-style-type: none;
+  padding: 6px;
+  margin: 5px 0 0 0;
+  background: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  position: absolute; /* remove from document flow, overlay content */
+  top: 100%; /* appear just below the navbar button */
+  left: 0;
+  z-index: 9999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.navbar:hover {
+  transform: scale(1.03);
+}
+
+.navbar > button {
+  transition: transform 0.15s ease-in-out;
+  transform-origin: center;
+}
+
+.navbar > button:hover {
+  transform: scale(1.08);
+}
+
+button {
+  margin-left: 10px;
 }

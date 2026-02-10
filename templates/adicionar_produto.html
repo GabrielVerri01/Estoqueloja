@@ -35,54 +35,30 @@
     </li>
   </ul>
 </div>
-<!-- <body>
-  <form action="{{ url_for('login') }}" class="back-bar">
-    <div class="container">
-      <button type="submit"> Back </button>
-    </div>
-  </form>
-  <!-- <button type="submit" onclick="{{ url_for('estoque') }}">Estoque</button> -->
-<!-- <form action="{{ url_for('estoque') }}" class="top-bar">
-    <div class="container">
-      <button type="submit"> Estoque </button>
-    </div>
-  </form>
-
-  <form action="{{ url_for('att_semanal') }}" class="top-bar">
-    <div class="container">
-      <button type="submit"> Atualizar Estoque </button>
-    </div>
-  </form>
-
-  <form action="{{ url_for('historico_movimentacoes') }}" class="top-bar">
-    <div class="container">
-      <button type="submit"> Histórico </button>
-    </div>
-  </form> -->
 
 <h1>Cadastrar Produto</h1>
 
 <form action="/salvar_produto" method="post">
   <label>Nome:</label><br>
-  <input type="text" name="nome" required><br><br>
+  <input type="text" name="nome" placeholder="Nome" required><br><br>
 
   <label>Código:</label><br>
-  <input type="text" name="codigo" required><br><br>
+  <input type="text" name="codigo" placeholder="Código do produto "><br><br>
 
   <label>Categoria:</label><br>
-  <input type="text" name="categoria"><br><br>
+  <input type="text" name="categoria" placeholder="Categoria"><br><br>
 
   <label>Quantidade inicial:</label><br>
-  <input type="number" name="quantidade" required><br><br>
+  <input type="number" name="quantidade" placeholder="Quantidade inicial"><br><br>
 
   <label>Estoque mínimo:</label><br>
-  <input type="number" name="estoque_minimo" required><br><br>
+  <input type="number" name="estoque_minimo" placeholder="Quantidade mínima" required><br><br>
 
   <label>Preço de custo:</label><br>
-  <input type="number" step="0.01" name="preco_custo"><br><br>
+  <input type="number" step="0.10" name="preco_custo" placeholder="Custo"><br><br>
 
   <label>Preço de venda:</label><br>
-  <input type="number" step="0.01" name="preco_venda"><br><br>
+  <input type="number" step="0.10" name="preco_venda" placeholder="Valor"><br><br>
 
   <button type="submit">Salvar</button>
 </form>

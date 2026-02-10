@@ -5,7 +5,7 @@ h1 {
 }
 
 /* top bar (botão no topo à direita) */
-.top-bar {
+/* .top-bar {
   width: 100%;
   box-sizing: border-box;
 }
@@ -13,10 +13,10 @@ h1 {
   display: flex;
   justify-content: flex-end;
   padding: 10px 20px;
-}
+} */
 
 form:not(.top-bar) {
-  /* justify-content: center; */
+  justify-content: center;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -38,13 +38,16 @@ label {
 .navbar {
   position: relative;
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   align-items: flex-start;
+  transition: transform 0.2s ease-in-out; /* animate both hover in and out */
+  transform-origin: left center;
 }
 
 #menu button {
   width: 100px;
   padding: 5px;
+  margin-left: 10px;
   text-align: center;
   box-sizing: border-box;
   border-bottom-color: black;
@@ -52,15 +55,31 @@ label {
 
 #menu {
   list-style-type: none;
-  padding: 0;
+  padding: 6px;
   margin: 5px 0 0 0;
   background: #f5f5f5;
   border: 1px solid #ccc;
-  padding: 6px;
   border-radius: 4px;
+  position: absolute; /* remove from document flow, overlay content */
+  top: 100%; /* appear just below the navbar button */
+  left: 0;
+  z-index: 9999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .navbar:hover {
   transform: scale(1.03);
-  transition: transform 0.2s ease-in-out;
+}
+
+.navbar > button {
+  transition: transform 0.15s ease-in-out;
+  transform-origin: center;
+}
+
+.navbar > button:hover {
+  transform: scale(1.08);
+}
+
+button {
+  margin-left: 10px;
 }

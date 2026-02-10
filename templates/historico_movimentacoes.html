@@ -1,9 +1,38 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='historico_mov.css') }}">
-<form action="{{ url_for('estoque') }}" class="back-bar">
+<!-- <form action="{{ url_for('estoque') }}" class="back-bar">
   <div class="container">
     <button type="submit"> Back </button>
   </div>
-</form>
+</form> -->
+<div class="navbar">
+  <button onclick="menu.hidden^=1"> ☰ </button>
+
+  <ul id="menu" hidden>
+    <li>
+      <form action="{{ url_for('adicionar_produto') }}">
+        <button type="submit"> Adicionar Produto </button>
+      </form>
+    </li>
+
+    <li>
+      <form action="{{ url_for('att_semanal') }}">
+        <button type="submit"> Atualizar Estoque </button>
+      </form>
+    </li>
+
+    <li>
+      <form action="{{ url_for('estoque') }}">
+        <button type="submit"> Estoque </button>
+      </form>
+    </li>
+
+    <li>
+      <form action="{{ url_for('adicionar_produto') }}">
+        <button type="submit"> Voltar</button>
+      </form>
+    </li>
+  </ul>
+</div>
 <h2>Histórico de Movimentações</h2>
 <table border="1">
   <tr>

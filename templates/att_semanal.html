@@ -9,11 +9,40 @@
 </head>
 
 <body>
-  <form action="{{ url_for('adicionar_produto') }}" class="top-bar">
+  <!-- <form action="{{ url_for('adicionar_produto') }}" class="top-bar">
     <div class="container">
       <button type="submit"> Voltar </button>
     </div>
-  </form>
+  </form> -->
+  <div class="navbar">
+    <button onclick="menu.hidden^=1"> ☰ </button>
+
+    <ul id="menu" hidden>
+      <li>
+        <form action="{{ url_for('adicionar_produto') }}">
+          <button type="submit"> Adicionar Produto </button>
+        </form>
+      </li>
+
+      <li>
+        <form action="{{ url_for('estoque') }}">
+          <button type="submit"> Estoque </button>
+        </form>
+      </li>
+
+      <li>
+        <form action="{{ url_for('historico_movimentacoes') }}">
+          <button type="submit"> Histórico </button>
+        </form>
+      </li>
+
+      <li>
+        <form action="{{ url_for('adicionar_produto') }}">
+          <button type="submit"> Voltar</button>
+        </form>
+      </li>
+    </ul>
+  </div>
 
   <h1> Atualização Semanal de Estoque </h1>
   <form action="/salvar_att_semanal" method="post">

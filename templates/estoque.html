@@ -1,21 +1,40 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='estoque.css') }}">
 
 <body>
-  <form action="{{ url_for('adicionar_produto') }}" class="top-bar">
-    <div class="container">
-      <button type="submit"> Back </button>
-    </div>
-  </form>
-  <form action="{{ url_for('pedir_prod') }}" class="top-bar">
-    <div class="container">
-      <button type="submit"> Solicitar produtos </button>
-    </div>
-  </form>
-  <form action="{{ url_for('historico_movimentacoes') }}" class="top-bar">
-    <div class="container">
-      <button type="submit"> Historico </button>
-    </div>
-  </form>
+  <div class="navbar">
+    <button onclick="menu.hidden^=1"> ☰ </button>
+
+    <ul id="menu" hidden>
+      <li>
+        <form action="{{ url_for('att_semanal') }}">
+          <button type="submit"> Atualizar Estoque </button>
+        </form>
+      </li>
+
+      <li>
+        <form action="{{ url_for('adicionar_produto') }}">
+          <button type="submit"> Adicionar Produto </button>
+        </form>
+      </li>
+
+      <li>
+        <form action="{{ url_for('historico_movimentacoes') }}">
+          <button type="submit"> Histórico </button>
+        </form>
+      </li>
+
+      <li>
+        <form action="{{ url_for('pedir_prod') }}">
+          <button type="submit"> Solicitar produtos</button>
+        </form>
+      </li>
+
+      <li>
+        <form action="{{ url_for('adicionar_produto') }}">
+          <button type="submit"> Voltar </button>
+        </form>
+    </ul>
+  </div>
 
 </body>
 

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Saída de Produto</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='saida.css') }}">
+
+</head>
+
+<body>
+
+  <div class="navbar">
+    <button onclick="menu.hidden^=1"> ☰ </button>
+
+    <ul id="menu" hidden>
+      <li>
+        <form action="{{ url_for('estoque') }}">
+          <button type="submit"> Estoque </button>
+        </form>
+      </li>
+
+      <li>
+        <form action="{{ url_for('adicionar_produto') }}">
+          <button type="submit"> Adicionar Produto </button>
+        </form>
+      </li>
+
+      <li>
+        <form action="{{ url_for('att_semanal') }}">
+          <button type="submit"> Atualizar Estoque </button>
+        </form>
+      </li>
+
+      <li>
+        <form action="{{ url_for('historico_movimentacoes') }}">
+          <button type="submit"> Histórico </button>
+        </form>
+      </li>
+
+      <li>
+        <form action="{{ url_for('login') }}">
+          <button type="submit"> Voltar</button>
+        </form>
+      </li>
+
+    </ul>
+  </div>
+  <div class="container">
+    <h1>Registrar Saída de Produto</h1>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="alertas">
+      {% for msg in messages %}
+      <p>{{ msg }}</p>
+      {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <form class="caixa" action="{{ url_for('salvar_saida') }}" method="post">
+      <label>Código do Produto:</label>
+      <input type="text" name="codigo" placeholder="Codigo " required>
+
+      <label>Quantidade que saiu:</label>
+      <input type="number" name="quantidade_saida" placeholder="Quantos sairam" required>
+
+      <button type="submit">Registrar Saída</button>
+    </form>
+
+  </div>
+
+</body>
+
+</html>

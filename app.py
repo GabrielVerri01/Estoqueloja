@@ -95,6 +95,65 @@ def pedir_prod():
     return render_template("pedir_prod.html", produtos=produtos)
 
 
+@app.route('/saida_produto')
+def saida_produto():
+    return render_template('saida_produto.html')
+
+
+@app.route('/salvar_saida', methods=['POST'])
+def salvar_saida():
+    codigo = request.form.get('codigo', '').strip()
+    try:
+        quantidade_saida = int(request.form.get('quantidade_saida', 0))
+    except ValueError:
+        flash('Quantidade inválida')
+        return redirect(url_for('saida_produto'))
+
+    if quantidade_saida <= 0:
+        flash('Quantidade deve ser maior que zero')
+        return redirect(url_for('saida_produto'))
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    cursor.execute('SELECT id, nome, quantidade FROM produtos WHERE codigo = ?', (codigo,))
+    produto = cursor.fetchone()
+
+    if produto is None:
+        conn.close()
+        flash('Produto não encontrado')
+        return redirect(url_for('saida_produto'))
+
+    produto_id = produto['id'] if isinstance(produto, dict) or True else produto[0]
+    quantidade_atual = produto['quantidade'] if isinstance(produto, dict) or True else produto[2]
+
+    # sqlite3.Row supports mapping-style access; handle both tuple and Row
+    try:
+        quantidade_atual = produto['quantidade']
+        produto_id = produto['id']
+    except Exception:
+        produto_id = produto[0]
+        quantidade_atual = produto[2]
+
+    if quantidade_saida > quantidade_atual:
+        conn.close()
+        flash('Quantidade insuficiente em estoque')
+        return redirect(url_for('saida_produto'))
+
+    nova_q = quantidade_atual - quantidade_saida
+    cursor.execute('UPDATE produtos SET quantidade = ? WHERE id = ?', (nova_q, produto_id))
+    cursor.execute(
+        "INSERT INTO movimentacoes (produto_id, tipo, quantidade, usuario_id) VALUES (?, 'saida', ?, 1)",
+        (produto_id, quantidade_saida),
+    )
+
+    conn.commit()
+    conn.close()
+
+    flash('Saída registrada com sucesso!')
+    return redirect(url_for('saida_produto'))
+
+
 @app.route("/att_semanal")
 def att_semanal():
     return render_template("att_semanal.html")
